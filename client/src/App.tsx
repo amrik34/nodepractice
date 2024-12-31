@@ -1,6 +1,8 @@
 import axios from "axios";
 import "./App.css";
 import { useEffect, useState } from "react";
+import SignIn from "./pages/auth/signIn";
+import { MantineProvider } from "@mantine/core";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -17,7 +19,21 @@ function App() {
       });
   }, []);
 
-  return <div className="App">test project {message}</div>;
+  return (
+    <>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          colorScheme: "light", // Set to 'dark' for dark mode
+        }}
+      >
+        {" "}
+        <SignIn />
+        <div className="App">test project {message}</div>;
+      </MantineProvider>
+    </>
+  );
 }
 
 export default App;
