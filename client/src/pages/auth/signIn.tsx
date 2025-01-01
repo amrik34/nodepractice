@@ -36,7 +36,7 @@ const SignIn = () => {
             mt="md"
             mb={50}
           >
-            Welcome back to Mantine!
+            Welcome back
           </Title>
 
           <TextInput

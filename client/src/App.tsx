@@ -2,13 +2,18 @@ import axios from "axios";
 import "./App.scss";
 import { useEffect, useState } from "react";
 import SignIn from "./pages/Auth/signIn";
-import { MantineProvider, MantineThemeOverride } from "@mantine/core";
+import {
+  createTheme,
+  MantineProvider,
+  MantineThemeOverride,
+} from "@mantine/core";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
+import "@mantine/core/styles.css";
 import routes from "./routes/routes";
 import Navbar from "./routes/Navbar";
 
@@ -33,8 +38,18 @@ function App() {
     return isAuthenticated ? children : <Navigate to="/signin" />;
   };
 
+  const theme = createTheme({
+    fontFamily: "Open Sans, sans-serif",
+    primaryColor: "cyan",
+  });
   return (
-    <MantineProvider withCssVariables>
+    // withGlobalStyles
+    <MantineProvider
+      theme={theme}
+      withCssVariables
+      withStaticClasses
+      withGlobalClasses
+    >
       <Router>
         <Navbar />
         <Routes>
