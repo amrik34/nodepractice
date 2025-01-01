@@ -1,8 +1,8 @@
 import axios from "axios";
-import "./App.css";
+import "./App.scss";
 import { useEffect, useState } from "react";
-import SignIn from "./pages/auth/signIn";
-import { MantineProvider } from "@mantine/core";
+import SignIn from "./pages/Auth/signIn";
+import { MantineProvider, MantineThemeOverride } from "@mantine/core";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -20,19 +20,18 @@ function App() {
   }, []);
 
   return (
-    <>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          colorScheme: "light", // Set to 'dark' for dark mode
-        }}
-      >
-        {" "}
-        <SignIn />
-        <div className="App">test project {message}</div>;
-      </MantineProvider>
-    </>
+    <MantineProvider withCssVariables>
+      <SignIn />
+      <div className="App">test project {message}</div>
+      <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+        <header className="header">
+          <h1>Welcome to My App</h1>
+        </header>
+        <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Click Me
+        </button>
+      </div>
+    </MantineProvider>
   );
 }
 
