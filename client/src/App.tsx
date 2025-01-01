@@ -3,6 +3,14 @@ import "./App.scss";
 import { useEffect, useState } from "react";
 import SignIn from "./pages/Auth/signIn";
 import { MantineProvider, MantineThemeOverride } from "@mantine/core";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import routes from "./routes/routes";
+import Navbar from "./routes/Navbar";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -19,18 +27,36 @@ function App() {
       });
   }, []);
 
+  const isAuthenticated = true; // Replace with your actual authentication logic
+
+  const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+    return isAuthenticated ? children : <Navigate to="/signin" />;
+  };
+
   return (
     <MantineProvider withCssVariables>
-      <SignIn />
-      <div className="App">test project {message}</div>
-      <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
-        <header className="header">
-          <h1>Welcome to My App</h1>
-        </header>
-        <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-          Click Me
-        </button>
-      </div>
+      <Router>
+        <Navbar />
+        <Routes>
+          {routes.map(
+            ({ path, component: Component, protected: isProtected }) => (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  isProtected ? (
+                    <ProtectedRoute>
+                      <Component />
+                    </ProtectedRoute>
+                  ) : (
+                    <Component />
+                  )
+                }
+              />
+            )
+          )}
+        </Routes>
+      </Router>
     </MantineProvider>
   );
 }
