@@ -11,6 +11,7 @@ import {
   Title,
 } from "@mantine/core";
 import classes from "./auth.module.css";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const form = useForm({
@@ -57,13 +58,16 @@ const SignIn = () => {
 
           <Text ta="center" mt="md">
             Don&apos;t have an account?{" "}
-            <Anchor<"a">
-              href="#"
+            {/* <Anchor<"a">
+              href="/signup"
               fw={700}
               onClick={(event) => event.preventDefault()}
             >
               Register
-            </Anchor>
+            </Anchor> */}
+            <Link to="/signup" className="hover:text-blue-600 text-blue-500">
+              Register
+            </Link>
           </Text>
         </Paper>
       </div>

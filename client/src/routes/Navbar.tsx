@@ -57,7 +57,11 @@ function Navbar() {
               <div className="hidden sm:ml-6 sm:block">
                 <ul className="flex space-x-4">
                   {routes
-                    .filter((route) => !route.protected || isAuthenticated) // Only show accessible routes
+                    .filter(
+                      (route) =>
+                        (!route.protected || isAuthenticated) &&
+                        route.isMainMenu !== false
+                    )
                     .map((route) => (
                       <li key={route.path}>
                         <Link
