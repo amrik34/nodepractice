@@ -66,7 +66,7 @@ app.use(bodyParser.json());
 app.get("/", function (req, res) {
   res.send("Welcome to the Hotel taaz");
 });
-
+require("dotenv").config();
 // imports routes
 const personRouter = require("./routes/personRoutes");
 const menuItemRouter = require("./routes/menuItemRoutes");
@@ -75,6 +75,8 @@ const menuItemRouter = require("./routes/menuItemRoutes");
 app.use("/person", personRouter);
 app.use("/menuitem", menuItemRouter);
 
-app.listen(2000, () => {
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
   console.log("server is started");
 });

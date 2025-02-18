@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
-// const mongoUrl = "mongodb://localhost:27017/hotel";
-const mongoUrl =
-  "mongodb+srv://amriks25:Koavkw3THdYU6c8p@cluster0.16vpx.mongodb.net/";
+require("dotenv").config();
+// const mongoUrl = process.env.DB_URl_LOCAL;
+
+const mongoUrl = process.env.DB_URl;
 
 mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
