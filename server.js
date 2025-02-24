@@ -64,13 +64,15 @@ const cors = require("cors");
 
 // Allow all origins
 app.use(cors());
-db.on("connected", () => {
-  console.log("server is connected with db");
-});
+
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.get("/", function (req, res) {
   res.send("Welcome to the Hotel taaz");
+});
+db.on("connected", () => {
+  res.send("Welcome db");
+  console.log("server is connected with db");
 });
 require("dotenv").config();
 // imports routes
