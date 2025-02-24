@@ -64,16 +64,18 @@ const cors = require("cors");
 
 // Allow all origins
 app.use(cors());
+app.get("/check-mongo", async (req, res) => {
+  const state = mongoose.connection.readyState; // Returns 0, 1, 2, or 3
+  const status = ["Disconnected", "Connected", "Connecting", "Disconnecting"];
 
+  res.json({ mongoStatus: status[state] });
+});
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.get("/", function (req, res) {
   res.send("Welcome to the Hotel taaz");
 });
-db.on("connected", () => {
-  res.send("Welcome db");
-  console.log("server is connected with db");
-});
+
 require("dotenv").config();
 // imports routes
 const personRouter = require("./routes/personRoutes");
