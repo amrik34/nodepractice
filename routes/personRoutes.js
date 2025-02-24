@@ -1,11 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
 
-const app = express();
-
-// Allow all origins
-app.use(cors());
 const Person = require("../models/person");
 router.post("/", async (req, res) => {
   try {
