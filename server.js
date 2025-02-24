@@ -59,6 +59,7 @@
 
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
 const db = require("./db");
 const cors = require("cors");
 
@@ -86,7 +87,12 @@ app.use("/person", personRouter);
 app.use("/menuitem", menuItemRouter);
 
 const PORT = process.env.PORT || 2000;
+app.get("/check-mongo", async (req, res) => {
+  const state = mongoose.connection.readyState; // Returns 0, 1, 2, or 3
+  const status = ["Disconnected", "Connected", "Connecting", "Disconnecting"];
 
+  res.json({ mongoStatus: status[state] });
+});
 app.listen(PORT, () => {
   console.log("server is started");
 });
