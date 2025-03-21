@@ -73,18 +73,31 @@ app.get("/check-mongo", async (req, res) => {
 });
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+
+require("dotenv").config();
+const passport = require("./auth");
+// middlewere Functions
+const logRequest = (req, res, next) => {
+  console.log(
+    `${new Date().toLocaleString()} Request to made :${req.originalUrl} `
+  );
+  next(); // move to next place
+};
+
+app.use(passport.initialize());
+app.use(logRequest);
+const localAuthMiddleWere = passport.authenticate("local", { session: false });
 app.get("/", function (req, res) {
   res.send("Welcome to the Hotel taaz");
 });
 
-require("dotenv").config();
 // imports routes
 const personRouter = require("./routes/personRoutes");
 const menuItemRouter = require("./routes/menuItemRoutes");
 
 //use the routers
-app.use("/person", personRouter);
-app.use("/menuitem", menuItemRouter);
+app.use("/person", localAuthMiddleWere, personRouter);
+app.use("/menuitem", localAuthMiddleWere, menuItemRouter);
 
 const PORT = process.env.PORT || 2000;
 app.get("/check-mongo", async (req, res) => {
