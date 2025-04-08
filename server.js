@@ -96,7 +96,7 @@ const personRouter = require("./routes/personRoutes");
 const menuItemRouter = require("./routes/menuItemRoutes");
 
 //use the routers
-app.use("/person", localAuthMiddleWere, personRouter);
+app.use("/person", personRouter);
 app.use("/menuitem", localAuthMiddleWere, menuItemRouter);
 
 const PORT = process.env.PORT || 2000;
